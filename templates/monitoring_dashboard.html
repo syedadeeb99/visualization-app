@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #777;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        /* Button style */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Table style */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        /* System Temperatures and Fan Speeds style */
+        h3 {
+            color: #007bff;
+            margin-top: 10px;
+        }
+
+        /* Running Processes style */
+        .process-item {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Additional Styles */
+        .status-ok {
+            color: #28a745;
+        }
+
+        .status-warning {
+            color: #ffc107;
+        }
+
+        .status-error {
+            color: #dc3545;
+        }
+
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        .create-alert-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monitoring Dashboard</h1>
+        
+        <h2>Server Uptime:</h2>
+        <p class="highlight">{{ uptime }} hours</p>
+        
+        <h2>System CPU Utilization:</h2>
+        <p class="highlight">{{ cpu_percent }}%</p>
+        
+        <h2>System Memory Usage:</h2>
+        <p class="highlight">{{ memory_usage }}%</p>
+        
+        <h2>System Swap Memory Usage:</h2>
+        <p class="highlight">{{ swap_memory_usage }}%</p>
+        
+        <h2>System Disk Usage:</h2>
+        <p class="highlight">{{ disk_usage }}%</p>
+        
+        <h2>System Network Usage:</h2>
+        <p>Sent: <span class="highlight">{{ network_sent }}</span> bytes</p>
+        <p>Received: <span class="highlight">{{ network_recv }}</span> bytes</p>
+        
+        <h2>Traffic Statistics:</h2>
+        <p>Sent: <span class="highlight">{{ traffic_stats.sent }}</span> bytes</p>
+        <p>Received: <span class="highlight">{{ traffic_stats.received }}</span> bytes</p>
+        
+        <h2>System Boot Time:</h2>
+        <p class="highlight">{{ boot_time }}</p>
+        
+        <h2>System Users:</h2>
+        <ul>
+            {% for user in users %}
+                <li>{{ user.name }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h2>Number of Running Processes:</h2>
+        <p class="highlight">{{ num_processes }}</p>
+        
+        <h2>Number of CPU Cores:</h2>
+        <p class="highlight">{{ num_cores }}</p>
+        
+        <h2>Load Average:</h2>
+        <p>Last 1 Minute: <span class="highlight">{{ load_avg[0] }}</span></p>
+        <p>Last 5 Minutes: <span class="highlight">{{ load_avg[1] }}</span></p>
+        <p>Last 15 Minutes: <span class="highlight">{{ load_avg[2] }}</span></p>
+        
+        {% if battery_info %}
+        <h2>Battery Information:</h2>
+        <p>Percentage: <span class="highlight">{{ battery_info.percent }}%</span></p>
+        <p>Status: <span class="highlight {% if battery_info.power_plugged == 'charging' %}status-warning{% elif battery_info.power_plugged == 'discharging' %}status-error{% else %}status-ok{% endif %}">{{ battery_info.power_plugged }}</span></p>
+        {% endif %}
+        
+        {% if temperatures %}
+        <h2>System Temperatures:</h2>
+        {% for key, temp_list in temperatures.items() %}
+            <h3>{{ key }}</h3>
+            <ul>
+                {% for temp in temp_list %}
+                    <li>{{ temp.label }}: <span class="highlight">{{ temp.current }}</span>°C</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+        {% endif %}
+        
+        {% if fan_speeds %}
+        <h2>System Fan Speeds:</h2>
+        {% for key, fan_list in fan_speeds.items() %}
+            <h3>{{ key }}</h3>
+            <ul>
+                {% for fan in fan_list %}
+                    <li>{{ fan.label }}: <span class="highlight">{{ fan.current }}</span> RPM</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+        {% endif %}
+    </div>
+    
+    <!-- Create alerts button -->
+    <div class="create-alert-btn">
+        <a href="/create_alert" class="btn">Create Alert</a>
+    </div>
+
+    <!-- Running Processes -->
+    <div class="container">
+        <h2>Running Processes:</h2>
+        <ul>
+            {% for process in process_list %}
+                <li class="process-item">PID: <span class="highlight">{{ process.pid }}</span>, Name: <span class="highlight">{{ process.name }}</span>, CPU Percent: <span class="highlight">{{ process.cpu_percent }}</span>, Memory Percent: <span class="highlight">{{ process.memory_percent }}</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

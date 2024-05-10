@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results for "{{ keyword }}"</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Log Level</th>
+                <th>Log Type</th>
+                <th>Log Severity</th>
+                <th>User Activity</th>
+                <th>Log Message</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in search_results.iterrows() %}
+                <tr>
+                    <td>{{ row['Log Level'] }}</td>
+                    <td>{{ row['Log Type'] }}</td>
+                    <td>{{ row['Log Severity'] }}</td>
+                    <td>{{ row['User Activity'] }}</td>
+                    <td>{{ row['Log Message'] }}</td>
+                    <td>{{ row['Timestamp'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

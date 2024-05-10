@@ -1,0 +1,91 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Analysis Dashboard Tool</title>
+    <style>
+        /* Your existing CSS styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Custom Font */
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.publicissapient.com/content/dam/ps-rebrand/about-us/2021/about-us/OG_About-Us.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Hide overflowing elements */
+            position: relative;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background: linear-gradient(to bottom right, #f6bc7d, #FF6347); /* Gradient Background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 1; /* Ensure container stays above background animation */
+        }
+        h1 {
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text Shadow */
+        }
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text Shadow */
+        }
+        .btn {
+            display: inline-block;
+            width: 200px;
+            padding: 12px;
+            text-align: center;
+            color: #f3ebeb;
+            background-color: #007bff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s; /* Add transform transition */
+            overflow: hidden; /* Hide button animation overflow */
+        }
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05); /* Button Animation */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Log Analysis Dashboard Tool</h1>
+        <p>Welcome to the Log Analysis Dashboard Tool. Click the button below to explore log data.</p>
+        <a href="/visualization" class="btn">Explore Log Data</a>
+        <!-- New button for accessing the search form -->
+        <a href="/search" class="btn">Search Log Data</a>
+        <p>Click <a href="/monitoring">here</a> to view server monitoring.</p>
+    </div>
+    <!-- Animated Background -->
+    <div class="animated-background"></div>
+    <!-- Floating Elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+</body>
+</html>

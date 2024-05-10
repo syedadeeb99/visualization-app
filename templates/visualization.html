@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Data Visualization</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative; /* Added relative positioning */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+        .chart {
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative; /* Added relative positioning */
+        }
+        .chart h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #17a2b8;
+        }
+        .chart img {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+        }
+        /* Additional Styles */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #007bff, #17a2b8);
+            z-index: -1;
+            border-radius: 20px;
+        }
+        .chart::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: -1;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            border-radius: 10px;
+        }
+        .chart:hover::before {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Log Data Visualization Dashboard</h1>
+        <div id="log-levels" class="chart">
+            <h2>Log Levels Distribution</h2>
+            <img id="log-level-img" src="data:image/png;base64,{{ log_level_plot }}" alt="Log Level Distribution">
+        </div>
+        <div id="log-types" class="chart">
+            <h2>Log Types Distribution</h2>
+            <img id="log-type-img" src="data:image/png;base64,{{ log_type_plot }}" alt="Log Type Distribution">
+        </div>
+        <div id="log-severities" class="chart">
+            <h2>Log Severities Distribution</h2>
+            <img id="log-severity-img" src="data:image/png;base64,{{ log_severity_plot }}" alt="Log Severity Distribution">
+        </div>
+        <div id="user-activities" class="chart">
+            <h2>User Activities Distribution</h2>
+            <img id="user-activity-img" src="data:image/png;base64,{{ user_activity_plot }}" alt="User Activity Distribution">
+        </div>
+        <div id="log-message-lengths" class="chart">
+            <h2>Log Message Lengths Distribution</h2>
+            <img id="log-message-lengths-img" src="data:image/png;base64,{{ log_message_lengths_plot }}" alt="Log Message Lengths Distribution">
+        </div>
+        <div id="stacked-bar-chart" class="chart">
+            <h2>Stacked Bar Chart of Log Level vs Log Severity</h2>
+            <img id="stacked-bar-chart-img" src="data:image/png;base64,{{ stacked_bar_chart }}" alt="Stacked Bar Chart of Log Level vs Log Severity">
+        </div>
+        <div id="scatter-plot" class="chart">
+            <h2>Scatter Plot of Log Level vs Log Message Length</h2>
+            <img id="scatter-plot-img" src="data:image/png;base64,{{ scatter_plot }}" alt="Scatter Plot of Log Level vs Log Message Length">
+        </div>
+        <div id="log-severity-pie" class="chart">
+            <h2>Pie Chart of Log Severities Distribution</h2>
+            <img id="log-severity-pie-img" src="data:image/png;base64,{{ log_severity_pie }}" alt="Pie Chart of Log Severities Distribution">
+        </div>
+        <div id="log-type-line" class="chart">
+            <h2>Line Chart of Log Types Distribution</h2>
+            <img id="log-type-line-img" src="data:image/png;base64,{{ log_type_line }}" alt="Line Chart of Log Types Distribution">
+        </div>
+    </div>
+</body>
+</html>
